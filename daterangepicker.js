@@ -273,6 +273,9 @@
         if (typeof options.alwaysShowCalendars === 'boolean')
             this.alwaysShowCalendars = options.alwaysShowCalendars;
 
+        if (typeof options.listenMouseUp === 'boolean')
+            this.listenMouseUp = options.listenMouseUp;
+
         // update day names order to firstDay
         if (this.locale.firstDay != 0) {
             var iterator = this.locale.firstDay;
@@ -426,6 +429,10 @@
             .on('blur.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsBlurred, this))
             .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this))
             .on('keydown.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsKeydown, this));
+
+        if(this.listenMouseUp){
+            this.container.find('.calendar').on('mouseup.daterangepicker', 'td.available', $.proxy(this.clickDate, this))
+        }
 
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
